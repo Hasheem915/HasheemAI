@@ -2,17 +2,17 @@ import colorama
 from colorama import Fore, Style
 from textblob import TextBlob
 
-# Initialize colorama for colored output
+
 colorama.init()
 
-# Emojis for the start of the program
+
 print(f"{Fore.CYAN}🌟 Welcome to Sentiment Spy! 🌟{Style.RESET_ALL}")
 
 user_name = input(f"{Fore.MAGENTA}Please enter your name: {Style.RESET_ALL}").strip()
 if not user_name:
-    user_name = "Mystery Agent"  # Fallback if user doesn't provide a name
+    user_name = "Mystery Agent" 
 
-# Store conversation as a list of tuples: (text, polarity, sentiment_type)
+
 conversation_history = []
 
 print(f"\n{Fore.CYAN}Hello, Agent {user_name}!")
@@ -27,7 +27,7 @@ while True:
         print(f"{Fore.RED}Please enter some text or a valid command.{Style.RESET_ALL}")
         continue
 
-    # Check for commands
+    
     if user_input.lower() == "exit":
         print(f"\n{Fore.BLUE}👋 Exiting Sentiment Spy. Farewell, Agent {user_name}! 🕶️{Style.RESET_ALL}")
         break
@@ -43,7 +43,7 @@ while True:
         else:
             print(f"{Fore.CYAN}📜 Conversation History:{Style.RESET_ALL}")
             for idx, (text, polarity, sentiment_type) in enumerate(conversation_history, start=1):
-                # Choose color & emoji based on sentiment
+                
                 if sentiment_type == "Positive":
                     color = Fore.GREEN
                     emoji = "😊"
@@ -58,7 +58,7 @@ while True:
                       f"(Polarity: {polarity:.2f}, {sentiment_type}){Style.RESET_ALL}")
         continue
 
-    # Analyze sentiment
+    
     polarity = TextBlob(user_input).sentiment.polarity
     if polarity > 0:
         sentiment_type = "Positive"
@@ -73,9 +73,9 @@ while True:
         color = Fore.YELLOW
         emoji = "😐"
 
-    # Store in history
+    
     conversation_history.append((user_input, polarity, sentiment_type))
 
-    # Print result with color, emojis, and polarity
+    
     print(f"{color}{emoji} {sentiment_type} sentiment detected! "
           f"(Polarity: {polarity:.2f}){Style.RESET_ALL}")
