@@ -1,0 +1,43 @@
+import random
+from colorama import init, Fore, Style
+
+init(autoreset=True)
+
+def get_user_choice():
+    choice = ''
+    while choice not in ['ROCK', 'PAPER', 'SCISSORS']:
+        choice = input(Fore.GREEN + "Choose Rock, Paper, or Scissors: ").upper()
+    return choice
+
+def get_ai_choice():
+    return random.choice(['ROCK', 'PAPER', 'SCISSORS'])
+
+def decide_winner(user, ai):
+    if user == ai:
+        return "It's a tie!"
+    elif (user == 'ROCK' and ai == 'SCISSORS') or \
+         (user == 'PAPER' and ai == 'ROCK') or \
+         (user == 'SCISSORS' and ai == 'PAPER'):
+        return Fore.BLUE + "You win!"
+    else:
+        return Fore.RED + "AI wins!"
+
+def display_choices(user, ai):
+    print(Fore.YELLOW + f"\nYou chose: {user}")
+    print(Fore.CYAN + f"AI chose: {ai}\n")
+
+def play_game():
+    print(Fore.MAGENTA + "\n=== Rock Paper Scissors ===")
+    user_choice = get_user_choice()
+    ai_choice = get_ai_choice()
+    display_choices(user_choice, ai_choice)
+    result = decide_winner(user_choice, ai_choice)
+    print(result)
+
+# Main game loop
+while True:
+    play_game()
+    again = input(Fore.GREEN + "\nPlay again? (y/n): ").lower()
+    if again != 'y':
+        print(Fore.MAGENTA + "\nThanks for playing!")
+        break
