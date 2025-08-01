@@ -9,6 +9,10 @@ sizes = {
     'large': (800, 800)
 }
 
+# Base directory and extension
+BASE_PATH = r"C:\Users\farya\OneDrive\Desktop\AI Codigal\ComputerVision\resize image"
+EXTENSION = ".jpg"
+
 def resize_image(image, size):
     return cv2.resize(image, size)
 
@@ -33,18 +37,21 @@ def display_resized_versions(image, label_prefix, is_gray):
         if is_gray:
             plt.imshow(resized, cmap='gray')
         else:
-            # Convert BGR to RGB for matplotlib
             plt.imshow(cv2.cvtColor(resized, cv2.COLOR_BGR2RGB))
         plt.title(title)
         plt.axis('off')
     plt.show()
 
 def main():
-    interior_path = input("Enter full path of the interior image: ").strip().strip('"')
-    exterior_path = input("Enter full path of the exterior image: ").strip().strip('"')
+    interior_filename = input("Enter name of the interior image (without .jpg): ").strip()
+    exterior_filename = input("Enter name of the exterior image (without .jpg): ").strip()
     view_type = input("Choose image type (colored/gray): ").strip().lower()
     region_choice = input("Which to display? (interior/exterior/both): ").strip().lower()
     is_gray = view_type == "gray"
+
+    # Construct full paths
+    interior_path = os.path.join(BASE_PATH, interior_filename + EXTENSION)
+    exterior_path = os.path.join(BASE_PATH, exterior_filename + EXTENSION)
 
     if region_choice in ['interior', 'both']:
         interior_image = load_and_prepare(interior_path, view_type)
